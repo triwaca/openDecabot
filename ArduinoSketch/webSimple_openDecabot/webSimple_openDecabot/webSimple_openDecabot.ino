@@ -4,6 +4,14 @@
  * 
  * Creates a Captive Portal webpage with simple comands. 
  * 
+ * To use:
+ * - Access the Wi-Fi network 'MeuDecabot' with a device such as smartphone,
+ *   tablet or computer, and click on the login message. 
+ * - You must see a page with a title and two buttons who can control the 
+ *   blue LED inside your Decabot (must be visible from the top or from
+ *   the frontal holes. 
+ * - Click on the buttons to change it's state.
+ * 
  */
 
 #include <ESP8266WiFi.h>
@@ -11,7 +19,7 @@
 #include <ESPAsyncWebServer.h>
 #include <DNSServer.h>
 
-const char *ssid = "ESP_Captive_Portal";
+const char *ssid = "MeuDecabot";
 const char *password = "";
 
 DNSServer dnsServer;
