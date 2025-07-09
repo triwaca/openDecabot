@@ -16,7 +16,7 @@ More information about Wemos platform and a list of main shields available can b
 The open Decabot® robot uses two 360 servo motors to drive its wheels. It's the simplest solution for small robots, since the servo motors didin't require H bridge circuits (they already have those inside!) and can be connected directly to the ESP8266 pins. 
 
 ### 3D printed body
-You can assemble your Open Decabot® using 3D printed parts. The basic chassis uses only 8 3D printed pieces, and can be assembled using a few screws. The 3D files can be found on 3dPrint folder. 
+You can assemble your Open Decabot® using 3D printed parts. The basic chassis uses only 8 3D printed pieces, and can be assembled using a few screws. The 3D files can be found on **3dPrint** folder. 
 
 ### Simple AA batteries for power
 Under the open Decabot® you can find a 4 x AA battery support, who can supply up to 6V directly to ESP board. This option simplifies the hardware, since the Wemos Mini board can hold the maxminum 6 volts, lowering the tension to 3 volts. Users can hack the project to use LiIon batteries, combined with the Wemos LiPo Battery Shield (https://www.wemos.cc/en/latest/d1_mini_shield/battery.html) for charging and step up the voltage to 5 volts. 
@@ -30,7 +30,7 @@ There are two ports on the upper part of the robot who can be used to access the
 - 1 x Wemos D1 Mini ESP8266 controller
 - 2 x Servo 5V 360
 - 1 x Wemos LED Matrix Shield
-- 1 x custom PCB board (check wiki how to build one) or 1 x Decabot Mini Shield PCB (see /decabotMiniShield folder)
+- 1 x custom PCB board (check wiki how to build one) or 1 x Decabot Mini Shield PCB (see **/decabotMiniShield** folder)
 - 1 x battery support for 4 x AA
 - 1 x acrylic frontface + 2 hallen 3mm screws (optional)
 - 7 x screws 3mm, 12mm long
@@ -52,6 +52,14 @@ Wemos platform does not have a simple shield board to connect servos, so we prov
 A homemade PDB board can be assembled just to connect the main components to the Wemos board: Battery to 5V pin, and servos to D0 and D6 pins, as shown below:
 
 ![Homemade Decabot Mini PCB](decabotMiniShield/openDecabot_homemadePcb.png)
+
+## Arduino Codes
+
+The Arduino sketches can be found on **/ArduinoSketch** folder. You can simply copy this folder inside your Arduino folder on your computer, and open the `.ino` files. 
+
+Remember that Decabot platform is based on `ESP8266` chip, in Wemos D1 Mini form factor. Your Arduino IDE must be proper set to manage ESP8266 family. To se if it is ready, go to `Tools` menu, then `Boards`, and look for `ESP8266 boards`. You must find `Wemos D1 Mini` there. If not, google for _installing ESP8266 on Arduino IDE_.
+
+Some sketches uses libraries who must be installed before. See instructions on each sketch how to proceed. 
 
 ## 3D project source
 The 3D source project was all designed on Tinkercad (yes!), and can be forked using the link below:
