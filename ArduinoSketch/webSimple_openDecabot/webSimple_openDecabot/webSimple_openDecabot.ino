@@ -29,7 +29,7 @@ void notFound(AsyncWebServerRequest *request) {
 void setup() {
   Serial.begin(115200);
   pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, HIGH); // LED off (inverted logic)
+  digitalWrite(LED_PIN, HIGH); // LED off (active low)
   ledState = false;
 
   WiFi.mode(WIFI_AP);
@@ -42,6 +42,7 @@ void setup() {
 
   // Root page
   server.on("/", HTTP_GET, [myIP](AsyncWebServerRequest *request) {
+    String ipStr = myIP.toString();
     String html = R"rawliteral(
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +59,7 @@ void setup() {
     }
     h1 {
       color: #333;
+      font-size: 24px;
     }
     button {
       padding: 15px 30px;
@@ -83,11 +85,11 @@ void setup() {
   </style>
 </head>
 <body>
-  <h1>ESP8266 LED Control</h1>
+  <h1>ESP8266 LED Control - IP: )rawliteral" + ipStr + R"rawliteral(</h1>
   <button id="onBtn" onclick="setLED('on')">Turn ON</button>
   <button id="offBtn" onclick="setLED('off')">Turn OFF</button>
   <div id="status">LED status: <strong id="ledState">unknown</strong></div>
-  <a href="http://)rawliteral" + myIP.toString() + R"rawliteral(/">Open on device browser</a>
+  <a href="http://)rawliteral" + ipStr + R"rawliteral(/">Open on device browser</a>
 
   <script>
     function setLED(state) {
@@ -106,7 +108,6 @@ void setup() {
         });
     }
 
-    // Load current LED status on page load
     window.onload = getLEDStatus;
   </script>
 </body>
@@ -116,12 +117,11 @@ void setup() {
     request->send(200, "text/html", html);
   });
 
-  // AJAX endpoint to set LED
   server.on("/led", HTTP_GET, [](AsyncWebServerRequest *request) {
     if (request->hasParam("state")) {
       String state = request->getParam("state")->value();
       if (state == "on") {
-        digitalWrite(LED_PIN, LOW); // Active low
+        digitalWrite(LED_PIN, LOW);
         ledState = true;
       } else {
         digitalWrite(LED_PIN, HIGH);
@@ -133,7 +133,6 @@ void setup() {
     }
   });
 
-  // AJAX endpoint to get current LED status
   server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", ledState ? "ON" : "OFF");
   });
