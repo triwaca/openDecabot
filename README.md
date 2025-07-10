@@ -38,20 +38,28 @@ There are two ports on the upper part of the robot who can be used to access the
 - 4 x AA batteries
 
 ### Decabot Mini Shield
-Wemos platform does not have a simple shield board to connect servos, so we provided a PCB project, using an open-hardware license, to order custom PCBs to your robots. This board has a few components, but it's goal is just to simplify the connection between the controller and the motors. The components are:
-- 1 x Buzzer on D8 pin
-- 2 x Female pin header 1x8 for Wemos connection
-- 2 x Female pin header 1x4 (or 1x5) for I2C, gyroscope or xDOF modules
-- 6 x Male pin header 1x3 for servos
-- 1 x power switch
-- 1 x battery connection (optional)
 
-![Decabot Mini Shield front face](decabotMiniShield/front_PCB_decabotMiniShieldV1.png)
-![Decabot Mini Shield back face](decabotMiniShield/back_PCB_decabotMiniShieldV1.png)
-
-A homemade PDB board can be assembled just to connect the main components to the Wemos board: Battery to 5V pin, and servos to D0 and D6 pins, as shown below:
+#### Homemade PDB
+Wemos platform does not have a simple shield board to connect servos, so you need a homemade board to use. It's goal is just to simplify the connection between the controller and the motors. A homemade PDB board can be assembled just to connect the main components to the Wemos board: Battery to 5V pin, and servos to D0 and D6 pins, as shown below:
 
 ![Homemade Decabot Mini PCB](decabotMiniShield/openDecabot_homemadePcb.png)
+
+![Homemade PCB circuit](decabotMiniShield/openDecabot_basicCircuit.png)
+
+#### Buy the Decabot Shield
+
+Help funding this project by buying our dedicated shield. It is the easiest way to enjoy all the possibilities of your Open Decabot Robot!
+
+- Easy access to Servo connections
+- On-off switch
+- Included buzzer for sounds
+- Easy connection for extra sensors, such as line-folowing sensors
+- Dedicated connection to Gyroscope/Accelerometer, for mapping projects
+- Dedicated connection to I2C modules, such as OLED displays, distance sensors, RGB sensors and RFID/NFC sensors
+
+![Homemade PCB circuit](decabotMiniShield/openDecabot_miniShieldOnHand.png)
+
+More information about commercial partnership on WIKI soon.
 
 ## Arduino Codes
 
@@ -69,3 +77,20 @@ https://www.tinkercad.com/things/dYy4XWihfYu-opendecabot-mini-v10
 
 ## Decabot® Trade Mark
 Besides this project is open source, the Decabot® name is a registered trademark from Decano Kits Company, and should not be used without proper consent. 
+
+## Open Source Licenses
+
+Open Decabot® project is licensed under CC BY-NC-SA 4.0. You are free to:
+
+- Share — copy and redistribute the material in any medium or format
+- Adapt — remix, transform, and build upon the material
+
+Under the following terms:
+
+- Attribution — You must give appropriate credit , provide a link to the license, and indicate if changes were made . You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+- NonCommercial — You may not use the material for commercial purposes .
+- ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+![Creative Commons License By NC SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png)
