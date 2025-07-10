@@ -93,4 +93,4 @@ Under the following terms:
 
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
-![Creative Commons License By NC SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png)
+![Creative Commons License By NC SA](images/ccByNcSa.png)
