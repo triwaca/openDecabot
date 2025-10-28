@@ -1,6 +1,6 @@
 /*
  * Captive Portal Decabot
- * Daniel Chagas, Cauan Oliveira, Paulo Roberto Gomes
+ * Daniel Chagas, Nicole Akemi Takeda, Cauan Oliveira, Paulo Roberto Gomes
  *
  * Robô cria uma rede wifi com captive portal que exibe botões de controle
  * remoto que controlam os servo motores. 
