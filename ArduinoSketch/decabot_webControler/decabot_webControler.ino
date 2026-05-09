@@ -33,12 +33,12 @@
 
 
 #include <ESP8266WiFi.h>
-#include <ESPAsyncTCP.h>        //tested on 1.2.4 from https://github.com/dvarrel/ESPAsyncTCP
-#include <ESPAsyncWebServer.h>  //tested on https://github.com/lacamera/ESPAsyncWebServer
+#include <ESPAsyncTCP.h>        //tested on 1.2.4 from dvarrel https://github.com/dvarrel/ESPAsyncTCP
+#include <ESPAsyncWebServer.h>  //tested on 3.1.0 from lacamera https://github.com/lacamera/ESPAsyncWebServer
 #include <DNSServer.h>
 #include <Servo.h>
-#include <Adafruit_GFX.h>       // tested on 1.11.10
-#include <WEMOS_Matrix_GFX.h>   // tested on 1.4.0iu332
+#include <Adafruit_GFX.h>       // tested on 1.11.10 by Adafruit
+#include <WEMOS_Matrix_GFX.h>   // tested on 1.4.0 from Thomas O Fredericks https://github.com/thomasfredericks/wemos_matrix_gfx 
 #define buzzer D8
 
 MLED matrix(7); // intensidade 7 (máximo)
