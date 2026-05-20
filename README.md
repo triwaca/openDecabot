@@ -24,7 +24,7 @@ You can assemble your Open Decabot® using 3D printed parts. The basic chassis u
 Under the open Decabot® you can find a 4 x AA battery support, who can supply up to 6V directly to ESP board. This option simplifies the hardware, since the Wemos Mini board can hold the maxminum 6 volts, lowering the tension to 3 volts. Users can hack the project to use LiIon batteries, combined with the Wemos LiPo Battery Shield (https://www.wemos.cc/en/latest/d1_mini_shield/battery.html) for charging and step up the voltage to 5 volts. 
 
 ### Easy access to USB ports
-There are two ports on the upper part of the robot who can be used to access the USB port (for firmware/Arduino sketch update), and other wiring and shield needs. 
+There is a hatch at the upper part of the robot who can be used to access the USB port (for firmware/Arduino sketch update), and other wiring and shield needs. 
 
 ![Decabot robot conneceted using USB cable to a computer](images/usbConnection_openDecabotMini.jpg)
 
