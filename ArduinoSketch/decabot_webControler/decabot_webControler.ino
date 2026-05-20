@@ -105,8 +105,8 @@ void setup() {
   Serial.println("Decabot");
   pinMode(buzzer, OUTPUT);
   matrix.setRotation(2);
-  servo0.attach(D0, 500, 2400); //setup for correct PWM on ESP8266
-  servo6.attach(D6, 500, 2400); //setup for correct PWM on ESP8266
+  servo0.attach(D0);
+  servo6.attach(D6);
   Serial.begin(115200);
 
   pinMode(LED_PIN, OUTPUT);
