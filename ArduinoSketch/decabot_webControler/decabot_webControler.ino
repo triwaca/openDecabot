@@ -101,8 +101,8 @@ void setup() {
   Serial.println(ssid);
   pinMode(buzzer, OUTPUT);
   matrix.setRotation(2);
-  motorDir.attach(D0);
-  motorEsq.attach(D6);
+  motorDir.attach(D0, 500, 2400); //setup for correct PWM on ESP8266
+  motorEsq.attach(D6, 500, 2400); //setup for correct PWM on ESP8266
   Serial.begin(115200);
 
   pinMode(LED_PIN, OUTPUT);
