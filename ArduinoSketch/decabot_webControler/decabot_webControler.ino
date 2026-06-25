@@ -39,12 +39,16 @@
 #include <Servo.h>
 #include <Adafruit_GFX.h>       // tested on 1.11.10 by Adafruit
 #include <WEMOS_Matrix_GFX.h>   // tested on 1.4.0 from Thomas O Fredericks https://github.com/thomasfredericks/wemos_matrix_gfx 
+#include <ArduinoUniqueID.h>    // tested on 1.3.0 from Cassettari https://github.com/ricaun/ArduinoUniqueID 
 #define buzzer D8
 #define battery A0
 #include "index_html.h"
+const String version = "1.0.20260625";
+const char compile_date[] = __DATE__ " " __TIME__;
 
 /* SETUP DECABOT - Change here parameters! Mude aqui parâmetros do seu robô! */
-const char *ssid = "MeuDecabot";
+String setupRobotName = "";
+String ssid = "MeuDecabot";
 const char *password = "";
 bool showBattery = false; //if the robot has battery measurement circuit
 
@@ -53,6 +57,7 @@ int lpos = 1; // posição olho esquerdo
 int rpos = 6; // posição olho direito
 int aleat = 5;
 bool awake = false;
+uint8_t contDisplayWifi = 0;
 
 //motors
 Servo motorDir;
@@ -75,9 +80,11 @@ int batValue = 0;
 const float minBat = 3.2;
 bool charging = false;
 int chargingImageStep = 0;
-long batTimer = 10000;
+long batTimer = 0;
 bool showingBat = false;
 bool batteryAllarm = false;
+
+static const uint8_t PROGMEM wifiLogo[] = {B01111110,B10000001,B00111100,B01000010,B00011000,B00100100,B00011000,B00011000};
 
 static const uint8_t PROGMEM miniNumbers[10][5] = {{0x2, 0x5, 0x5, 0x5, 0x2},{0x2, 0x6, 0x2, 0x2, 0x7},{0x6, 0x1, 0x2, 0x4, 0x7},{0x6, 0x1, 0x2, 0x1, 0x6},{0x1, 0x5, 0x7, 0x1, 0x1},{0x7, 0x4, 0x6, 0x1, 0x6},{0x3, 0x4, 0x6, 0x5, 0x2},{0x7, 0x1, 0x2, 0x2, 0x2},{0x2, 0x5, 0x2, 0x5, 0x2},{0x2, 0x5, 0x3, 0x1, 0x6}};
 
@@ -97,14 +104,22 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.println();
-  Serial.print("Decabot ");
-  Serial.println(ssid);
+  Serial.println("Copyright (C) Decano Robotics - www.decabot.com");
+  Serial.print("Decabot Version: ");
+  Serial.print(version);
+  Serial.print(" - ");
+  Serial.println(compile_date);
+  Serial.println("MAC: " + WiFi.macAddress());
+  Serial.println("Robot ID " + decabotUniqueID());
+  setupRobotName = decabotName(decabotUniqueID());
+  ssid = "decabot_" + setupRobotName;
   pinMode(buzzer, OUTPUT);
   matrix.setRotation(2);
+  matrix.setTextSize(1);
+  matrix.setTextWrap(false);
+  matrix.setTextColor(LED_ON);
   motorDir.attach(D0, 500, 2400); //setup for correct PWM on ESP8266
   motorEsq.attach(D6, 500, 2400); //setup for correct PWM on ESP8266
-  Serial.begin(115200);
-
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, HIGH); // LED off (ativo em LOW)
   ledState = false;
@@ -168,6 +183,8 @@ void setup() {
   }
   delay(500);
   matrix.clear();
+  Serial.print("I am an openDecabot and my name is ");
+  Serial.println(setupRobotName);
 }
 
 void loop() {
@@ -183,7 +200,7 @@ void loop() {
   }
   if(millis()>batTimer){
     if(showingBat){
-      batTimer = millis() + 10000;
+      batTimer = millis() + 100;
       showingBat = false;
       if(awake){
         // animação dos olhos + buzzer (mantida)
@@ -232,10 +249,8 @@ void loop() {
           delay(15);
         }
       } else {
-        matrix.clear();
-        matrix.drawLine(0, 7, 2, 7, LED_ON);
-        matrix.drawLine(5, 7, 7, 7, LED_ON);
-        matrix.writeDisplay();
+        decabotShowName();
+        delay(100);
       }
     } else {
       if(showBattery) {
@@ -411,4 +426,50 @@ void showMiniNumbers(int value){
   matrix.drawBitmap(0, 1, miniNumbers[units] , 8, 5, LED_ON);
   matrix.drawBitmap(-4, 1, miniNumbers[tens] , 8, 5, LED_ON);
   matrix.writeDisplay();
+}
+
+String decabotUniqueID(){
+  String id = "";
+  for (size_t i = 0; i < UniqueIDsize; i++){
+    if (UniqueID[i] < 0x10) id = id + "0";
+    id = id + UniqueID[i];
+  }
+  return id;
+}
+
+String decabotName(String entrada) {
+  uint16_t hashCalculado = 0;
+
+  for (unsigned int i = 0; i < entrada.length(); i++) {
+    hashCalculado += entrada.charAt(i);
+    hashCalculado += (hashCalculado << 10);
+    hashCalculado ^= (hashCalculado >> 6);
+  }
+  hashCalculado += (hashCalculado << 3);
+  hashCalculado ^= (hashCalculado >> 11);
+  hashCalculado += (hashCalculado << 15);
+
+  const char caracteres[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  String hashResultado = "";
+
+  for (int i = 0; i < 4; i++) {
+    uint16_t indice = (hashCalculado + (i * 17)) % 36; 
+    hashResultado += caracteres[indice];
+    hashCalculado >>= 4; 
+  }
+
+  return hashResultado;
+}
+
+void decabotShowName(){
+  if(contDisplayWifi<20){
+    matrix.drawBitmap(0, 0, wifiLogo , 8, 8, LED_ON);
+  } else {
+    matrix.clear();
+    matrix.setCursor((contDisplayWifi - 20) * -1,1);
+    matrix.print("  " + setupRobotName + " ");
+  }
+  matrix.writeDisplay();
+  contDisplayWifi++;
+  if(contDisplayWifi>56) contDisplayWifi=0;
 }
