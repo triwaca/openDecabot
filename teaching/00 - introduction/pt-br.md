@@ -1,6 +1,8 @@
 # Introdução: Plataforma Wemos D1 Mini
 
- A plataforma **Wemos D1 Mini** é uma das placas de desenvolvimento mais populares e eficientes do ecossistema de Internet das Coisas (IoT) e sistemas embarcados. Baseada no módulo Wi-Fi **ESP8266EX**, ela combina um tamanho extremamente reduzido (form factor *mini*) com um poder de processamento e conectividade robustos, tornando-se uma ferramenta indispensável tanto para o ensino acadêmico quanto para o desenvolvimento de protótipos avançados de robótica open-source e automação.
+![](wemosD1mini.jpg)
+
+A plataforma **Wemos D1 Mini** é uma das placas de desenvolvimento mais populares e eficientes do ecossistema de Internet das Coisas (IoT) e sistemas embarcados. Baseada no módulo Wi-Fi **ESP8266EX**, ela combina um tamanho extremamente reduzido (form factor *mini*) com um poder de processamento e conectividade robustos, tornando-se uma ferramenta indispensável tanto para o ensino acadêmico quanto para o desenvolvimento de protótipos avançados de robótica open-source e automação.
 
 ## 1. Características Técnicas
 
@@ -20,6 +22,10 @@ O Wemos D1 Mini supera as placas tradicionais de 8 bits (como o Arduino Uno) em 
 ---
 
 ## 2. Pinagem (Pinout) e Funções Especiais
+
+Ao montar sua Wemos D1 mini lembre-se de escolher corretamente o pino duplo, posicionando para cima os pinos fêmeas, e na parte de baixo os pinos machos, conforme imagem:
+
+![](wemosD1mini_assembled.jpg)
 
 Compreender a pinagem do Wemos D1 Mini é fundamental, pois os rótulos gravados na placa (D0 a D8) não correspondem diretamente aos números das portas lógicas (GPIO) internos usados na programação.
 | Rótulo na Placa | GPIO Interno | Funções Principais / Notas de Boot |
