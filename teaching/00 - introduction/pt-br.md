@@ -117,16 +117,16 @@ Para programar o Wemos D1 Mini usando a linguagem baseada em C/C++ do Arduino, s
     
     ```cpp
     void setup() {
-    // Configura o pino do LED interno como saída
-    pinMode(LED_BUILTIN, OUTPUT); 
+        // Configura o pino do LED interno como saída
+        pinMode(LED_BUILTIN, OUTPUT); 
     }
     void loop() {
-    // Liga o LED (Lógica invertida: LOW ativa o LED interno no Wemos)
-    digitalWrite(LED_BUILTIN, LOW); 
-    delay(5000); // Mantém ligado por 5 segundos
+        // Liga o LED (Lógica invertida: LOW ativa o LED interno no Wemos)
+        digitalWrite(LED_BUILTIN, LOW); 
+        delay(5000); // Mantém ligado por 5 segundos
     
-    // Desliga o LED
-    digitalWrite(LED_BUILTIN, HIGH); 
+        // Desliga o LED
+        digitalWrite(LED_BUILTIN, HIGH); 
     delay(1000); // Mantém desligado por 1 segundo
     }
     ```
