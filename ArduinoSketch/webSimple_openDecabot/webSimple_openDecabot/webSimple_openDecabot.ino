@@ -14,8 +14,16 @@
  * 
  */
 
-#include <ESP8266WiFi.h>
-#include <ESPAsyncTCP.h>
+#if defined(ESP8266)
+  #include <ESP8266WiFi.h>
+  #include <ESPAsyncTCP.h>
+  #define LED_PIN LED_BUILTIN
+#elif defined(ESP32)
+  #include <WiFi.h>
+  #include <AsyncTCP.h>
+  #define LED_PIN 8 // LED on-board no GPIO 8 (ESP32-C3 SuperMini)
+#endif
+
 #include <ESPAsyncWebServer.h>
 #include <DNSServer.h>
 
@@ -27,7 +35,6 @@ const byte DNS_PORT = 53;
 
 AsyncWebServer server(80);
 
-const int LED_PIN = LED_BUILTIN;
 bool ledState = false;
 
 void notFound(AsyncWebServerRequest *request) {
